@@ -45,7 +45,7 @@ img:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(145, 215, 243);
+    background-color: rgb(165, 225, 249);
 }
 
 #menu {
@@ -54,4 +54,23 @@ img:hover {
     list-style: none;
     gap: 30px;
 
+}
+
+#btn-mobile {
+    display: none;
+}
+
+@media (max-width : 600px) {
+    #btn-mobile {
+        display: block;
+
+    }
+
+    #menu {
+        display: none;
+    }
+
+    #nav.active #menu {
+        display: flex;
+    }
 }
