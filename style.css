@@ -14,9 +14,10 @@ a:hover {
     background: rgb(21, 192, 230);
 }
 
-#logo {
-    font-size: 1 .5rem;
-    font-weight: bold;
+img {
+    width: 120px;
+    padding: 10px;
+    top: 50px;
 }
 
 #header {
@@ -26,7 +27,11 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(142, 225, 248);
+    background: rgb(5, 64, 81);
+}
+
+#menu.active {
+    display: block;
 }
 
 #menu {
@@ -40,6 +45,7 @@ a:hover {
     padding: .5rem;
 }
 
+
 #btn-mobile {
     display: none;
 }
@@ -50,13 +56,12 @@ a:hover {
     }
 
     #menu {
-        /*display: none;*/
         display: none;
         position: absolute;
         width: 100%;
         top: 70px;
-        right: 0%;
-        background-color: rgb(142, 225, 248);
+        right: 0px;
+        background: rgb(21, 192, 230);
         height: calc(100vh - 70px);
         z-index: 1000;
     }
@@ -68,6 +73,6 @@ a:hover {
     #menu a {
         padding: 1rem 0;
         margin: 0 1rem;
-        border-bottom: 2px solid rgb(251, 249, 249);
+        border-bottom: 2px solid rgb(219, 5, 5);
     }
 }
