@@ -4,26 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu de navegação</title>
-    <script src="index.js"></script>
     <link rel="stylesheet" href="style.css">
-
+    <script src="index.js" defer></script>
 </head>
-
 
 <body>
 
     <header id="header">
-        <img src="img/logo2.png" alt="logo">
+
         <nav id="nav">
-            <button id="btn-mobile">Menu</button>
-            <ul id="menu">
-                <li><a href="">SOBRE</a></li>
-                <li><a href="">PRODUTOS</a></li>
-                <li><a href="">LOCALIZAÇÃO</a></li>
-                <li><a href="">CONTATO</a></li>
+            <button id="theme-toggle" aria-label="Mudar para modo claro">
+                <span class="icon-sun">&#9728;</span> <span class="slider"></span> <span
+                    class="icon-moon">&#9790;</span> </button>
+
+            <button id="btn-mobile" aria-label="Abrir Menu" aria-haspopup="true" aria-controls="menu"
+                aria-expanded="false">
+                <span id="hamburger"></span>
+            </button>
+
+            <ul id="menu" role="menu">
+                <li><a href="#hero" class="active-link">SOBRE</a></li>
+                <li><a href="#content">PRODUTOS</a></li>
+                <li><a href="#content">LOCALIZAÇÃO</a></li>
+                <li><a href="#content">CONTATO</a></li>
             </ul>
         </nav>
     </header>
+
+    <main>
+        <section id="hero">
+            <h1>Tema Dia & Noite</h1>
+            <p>Veja o cabeçalho encolher e troque o tema.</p>
+        </section>
+
+        <section id="content">
+            <h2>Nossos Produtos</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus
+                ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent
+                mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class
+                aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales
+                ligula in libero. Sed dignissim lacinia nunc.</p>
+            <p>Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed
+                convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel,
+                suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus
+                metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class
+                aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+            <p>Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante
+                quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat
+                imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit.
+                Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa
+                mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et
+                ultrices posuere cubilia Curae; Morbi lacinia molestie dui.</p>
+        </section>
+    </main>
+
+    <a href="#header" id="back-to-top" aria-label="Voltar ao topo">
+        &#8593; </a>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Seu Site. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">Fb</a>
+                <a href="#" aria-label="Instagram">In</a>
+                <a href="#" aria-label="LinkedIn">Lk</a>
+            </div>
+        </div>
+    </footer>
 
 </body>
 

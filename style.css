@@ -1,78 +1,517 @@
-body,
-ul {
+/* --- 1. VARIÁVEIS DE TEMA (MODO ESCURO É O PADRÃO) --- */
+:root {
+    --header-height: 70px;
+    --header-height-scrolled: 50px;
+
+    /* Tema Escuro (Padrão) */
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b3b3b3;
+
+    --header-bg: rgba(30, 30, 30, 0.75);
+    /* Fundo de vidro */
+    --header-text: #e0e0e0;
+
+    --accent-color: rgb(21, 192, 230);
+    --accent-color-hover: rgb(15, 160, 190);
+    --accent-text-color: #ffffff;
+    --glow-color: rgba(21, 192, 230, 0.7);
+
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+body.light-mode {
+    /* Tema Claro */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f4f4f4;
+    --text-primary: #333333;
+    --text-secondary: #555555;
+
+    --header-bg: rgba(255, 255, 255, 0.75);
+    /* Fundo de vidro claro */
+    --header-text: #333333;
+
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* --- 2. ANIMAÇÕES (Keyframes) --- */
+@keyframes pulse-glow {
+    0% {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+
+    50% {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px var(--glow-color);
+    }
+
+    100% {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+}
+
+@keyframes pulse-button {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 var(--glow-color);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(21, 192, 230, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(21, 192, 230, 0);
+    }
+}
+
+
+/* --- 3. ESTILOS GERAIS --- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
     margin: 0px;
     padding: 0px;
-}
-
-a {
-    color: rgb(251, 249, 249);
-    text-decoration: none;
     font-family: sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding-top: var(--header-height);
+    transition: padding-top 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-a:hover {
-    background: rgb(21, 192, 230);
+body.scrolled {
+    padding-top: var(--header-height-scrolled);
 }
 
-img {
-    width: 120px;
-    padding: 10px;
-    top: 50px;
-}
-
+/* --- 4. CABEÇALHO (HEADER) --- */
 #header {
     box-sizing: border-box;
-    height: 70px;
-    padding: 1rem;
+    height: var(--header-height);
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    /* Efeito de vidro permanente */
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 2px 10px var(--shadow-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    transition: height 0.3s ease, background-color 0.3s ease;
+}
+
+#header.scrolled {
+    height: var(--header-height-scrolled);
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+/* --- 5. NAVEGAÇÃO (NAV) E BOTÕES --- */
+#nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* NOVO BOTÃO DE TEMA (SWITCH) */
+#theme-toggle {
+    background: rgba(0, 0, 0, 0.2);
+    /* Fundo do trilho */
+    border: none;
+    /* <-- TRAÇO REMOVIDO */
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgb(5, 64, 81);
+    padding: 0 4px;
+    /* Espaçamento interno para os ícones */
+    border-radius: 50px;
+    /* Formato de pílula */
+    width: 50px;
+    height: 26px;
+    position: relative;
+    transition: background-color 0.3s ease;
 }
 
-#menu.active {
-    display: block;
+body.light-mode #theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    /* Fundo do trilho no modo claro */
 }
 
+/* Ícones dentro do switch */
+#theme-toggle .icon-sun {
+    font-size: 1rem;
+    color: #f39c12;
+    /* Cor do sol */
+}
+
+#theme-toggle .icon-moon {
+    font-size: 1rem;
+    color: #f1c40f;
+    /* Cor da lua */
+}
+
+/* O círculo deslizante */
+.slider {
+    background: var(--header-text);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Animação do slider */
+body.light-mode .slider {
+    transform: translateX(24px);
+    /* Move o slider para a direita */
+}
+
+/* Fim do novo botão de tema */
+
+
+/* --- 6. MENU DESKTOP --- */
 #menu {
     display: flex;
     list-style: none;
     gap: .5rem;
+    margin: 0;
+    padding: 0;
 }
 
 #menu a {
-    display: flex;
+    color: var(--header-text);
+    display: inline-block;
     padding: .5rem;
+    position: relative;
+    transition: transform 0.2s ease, text-shadow 0.3s ease, color 0.3s ease;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+}
+
+/* EFEITO DE HOVER: [ BRACKETS ] */
+#menu a::before,
+#menu a::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 80%;
+    top: 10%;
+    border-style: solid;
+    border-color: var(--accent-color);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#menu a::before {
+    left: -5px;
+    border-width: 2px 0 2px 2px;
+    transform: translateX(-10px);
+}
+
+#menu a::after {
+    right: -5px;
+    border-width: 2px 2px 2px 0;
+    transform: translateX(10px);
+}
+
+#menu a:hover {
+    transform: translateY(-2px);
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+#menu a:hover::before,
+#menu a:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Estilo de Link Ativo (Glow, sem sublinhado) */
+#menu a.active-link {
+    font-weight: bold;
+    color: var(--accent-color);
+    text-shadow: 0 0 5px var(--glow-color);
 }
 
 
-#btn-mobile {
-    display: none;
+/* --- 7. CONTEÚDO PRINCIPAL --- */
+main {
+    background: var(--bg-secondary);
+    transition: background-color 0.3s ease;
 }
 
+#hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#hero h1 {
+    font-size: 3rem;
+    margin: 0;
+    animation: pulse-glow 4s infinite ease-in-out;
+}
+
+#content {
+    padding: 2rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: auto;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- 8. BOTÃO VOLTAR AO TOPO --- */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent-color);
+    color: var(--accent-text-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+#back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    animation: pulse-button 2.5s infinite;
+}
+
+#back-to-top:hover {
+    background: var(--accent-color-hover);
+    transform: scale(1.1);
+    animation-play-state: paused;
+}
+
+/* --- 9. FOOTER (RODAPÉ) --- */
+footer {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+    color: var(--text-secondary);
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--shadow-color);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-content p {
+    margin: 0;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    color: var(--header-text);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: color 0.2s ease, transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+
+/* --- 10. ESTILOS MOBILE (Responsivo) --- */
 @media (max-width: 600px) {
-    #btn-mobile {
-        display: block;
+
+    #theme-toggle {
+        order: -1;
     }
 
     #menu {
-        display: none;
         position: absolute;
-        width: 100%;
-        top: 70px;
+        width: 100vw;
+        top: var(--header-height);
         right: 0px;
-        background: rgb(21, 192, 230);
-        height: calc(100vh - 70px);
+        height: calc(100vh - var(--header-height));
         z-index: 1000;
+
+        background: linear-gradient(180deg, var(--accent-color), var(--accent-color-hover));
+
+        transition: transform .3s ease-in-out, visibility .3s, top 0.3s ease;
+        transform: translateX(100%);
+        visibility: hidden;
+
+        flex-direction: column;
+        gap: 0;
+        padding-top: 1rem;
+        overflow-y: auto;
+    }
+
+    #header.scrolled #menu {
+        top: var(--header-height-scrolled);
+        height: calc(100vh - var(--header-height-scrolled));
     }
 
     #nav.active #menu {
-        display: block;
+        transform: translateX(0%);
+        visibility: visible;
     }
 
+    /* Animação dos itens do menu */
+    #menu li {
+        opacity: 0;
+        transform: translateX(20px);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+
+    #nav.active #menu li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    #nav.active #menu li:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    #nav.active #menu li:nth-child(2) {
+        transition-delay: 0.15s;
+    }
+
+    #nav.active #menu li:nth-child(3) {
+        transition-delay: 0.2s;
+    }
+
+    #nav.active #menu li:nth-child(4) {
+        transition-delay: 0.25s;
+    }
+
+    /* Estilo dos links mobile (SEM SUBLINHADO) */
     #menu a {
-        padding: 1rem 0;
+        padding: 1.2rem 1rem;
         margin: 0 1rem;
-        border-bottom: 2px solid rgb(219, 5, 5);
+        border-bottom: none;
+        display: block;
+        transition: background-color 0.2s ease;
+        color: var(--accent-text-color);
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    #menu a::after,
+    #menu a::before {
+        display: none;
+    }
+
+    #menu a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Link ativo no mobile (EFEITO GLOW) */
+    #menu a.active-link {
+        background: none;
+        border-radius: 4px;
+        color: var(--accent-text-color);
+        text-shadow: 0 0 8px var(--accent-text-color);
+    }
+
+    /* --- Botão Hambúrguer --- */
+    #btn-mobile {
+        display: flex;
+        padding: 1.5rem;
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: var(--header-text);
+        z-index: 1001;
+    }
+
+    #hamburger {
+        display: block;
+        border-top: 2px solid var(--header-text);
+        width: 20px;
+        transition: border-color 0.3s ease;
+    }
+
+    #hamburger::after,
+    #hamburger::before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: var(--header-text);
+        margin-top: 35px;
+        transition: transform .3s ease, opacity .3s ease, background-color 0.3s ease;
+        position: relative;
+    }
+
+    #nav.active #hamburger {
+        border-top-color: transparent;
+    }
+
+    #nav.active #hamburger::before {
+        transform: rotate(135deg);
+        top: 7px;
+    }
+
+    #nav.active #hamburger::after {
+        transform: rotate(-135deg);
+        top: -7px;
+    }
+
+    /* Ajustes finais mobile */
+    #hero {
+        height: 40vh;
+    }
+
+    #hero h1 {
+        font-size: 2rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
     }
 }
